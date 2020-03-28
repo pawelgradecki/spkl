@@ -1,0 +1,46 @@
+{
+  "webresources": [
+    {
+      "root": "",
+      "solution": "Test",
+      "files": [
+        {
+          "uniquename": "new_/js/somefile.js",
+          "file": "new_\\js\\somefile.js",
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "plugins": [
+    {
+      "assemblypath": "bin\\Debug"
+    }
+  ],
+  "solutions": [
+    {
+      "profile": "default,debug",
+      "solution_uniquename": "TestSpkl",
+      "packagepath": "package",
+      "packagetype": "unmanaged",
+      "increment_on_import": false,
+      "map": [
+        {
+          "map": "path",
+          "from": "PluginAssemblies\\**\\*.*",
+          "to": "..\\Webresources\\**"
+        },
+        {
+          "map": "path",
+          "from": "WebResources\\*.*",
+          "to": "..\\Webresources\\**"
+        },
+        {
+          "map": "path",
+          "from": "WebResources\\**\\*.*\",",
+          "to": "..\\Webresources\\**"
+        }
+      ]
+    }
+  ]
+}
