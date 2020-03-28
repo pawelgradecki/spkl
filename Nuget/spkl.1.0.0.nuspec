@@ -4,10 +4,10 @@
         <id>spkl</id>
         <version>1.0.0</version>
         <title>spkl - Dynamics 365 deployment task runner</title>
-        <authors>Scott Durow</authors>
-        <licenseUrl>https://github.com/scottdurow/SparkleXrm/blob/master/MIT-License.txt</licenseUrl>
-        <projectUrl>https://github.com/scottdurow/sparklexrm</projectUrl>
-        <iconUrl>https://raw.githubusercontent.com/scottdurow/SparkleXrm/master/NuGet/SparkleXRM.png</iconUrl>
+        <authors>Pawel Gradecki</authors>
+        <licenseUrl>https://github.com/pawelgradecki/spkl/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/pawelgradecki/spkl</projectUrl>
+        <iconUrl>https://github.com/pawelgradecki/spkl/blob/master/SparkleXRM.png</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>Simple and Lightweight deployment task runner for Dynamics 365</description>
         <language>en-GB</language>
@@ -18,8 +18,6 @@
         <file src="..\spkl\bin\Release\CmdLine.dll" target="tools\CmdLine.dll" />
         <file src="..\spkl\bin\Release\Microsoft.Crm.Sdk.Proxy.dll" target="tools\Microsoft.Crm.Sdk.Proxy.dll" />
         <file src="..\spkl\bin\Release\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" target="tools\Microsoft.IdentityModel.Clients.ActiveDirectory.dll" />
-        <file src="..\spkl\bin\Release\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll" target="tools\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll" />
-        <file src="..\spkl\bin\Release\Microsoft.IdentityModel.dll" target="tools\Microsoft.IdentityModel.dll" />
         <file src="..\spkl\bin\Release\Microsoft.Xrm.Sdk.Deployment.dll" target="tools\Microsoft.Xrm.Sdk.Deployment.dll" />
         <file src="..\spkl\bin\Release\Microsoft.Xrm.Sdk.dll" target="tools\Microsoft.Xrm.Sdk.dll" />
         <file src="..\spkl\bin\Release\Microsoft.Xrm.Sdk.Workflow.dll" target="tools\Microsoft.Xrm.Sdk.Workflow.dll" />
