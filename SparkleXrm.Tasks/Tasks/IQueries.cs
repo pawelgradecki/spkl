@@ -11,6 +11,7 @@ namespace SparkleXrm.Tasks
         SdkMessageFilter GetMessageFilter(OrganizationServiceContext ctx, string entityLogicalName, string messageName);
         List<SdkMessageProcessingStepImage> GetPluginStepImages(OrganizationServiceContext ctx, SdkMessageProcessingStep step);
         List<SdkMessageProcessingStep> GetPluginSteps(OrganizationServiceContext ctx, string pluginType);
+        List<SdkMessageProcessingStep> GetPluginStepsInSolution(OrganizationServiceContext ctx, string uniqueName);
         List<PluginType> GetPluginTypes(OrganizationServiceContext ctx, PluginAssembly plugin);
         WebResource GetWebResource(OrganizationServiceContext ctx, string uniqueName);
         List<WebResource> GetWebresources(OrganizationServiceContext ctx);
