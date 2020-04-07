@@ -49,6 +49,28 @@ namespace SparkleXrm.Tasks
             ).ToList();
         }
 
+        public List<SdkMessageProcessingStep> GetPluginStepsInSolution(OrganizationServiceContext ctx, string uniqueName)
+        {
+            if (string.IsNullOrEmpty(uniqueName))
+            {
+                return new List<SdkMessageProcessingStep>();
+            }
+
+            return (from sps in ctx.CreateQuery<SdkMessageProcessingStep>()
+                    join sc in ctx.CreateQuery<SolutionComponent>()
+                        on sps.SdkMessageProcessingStepId equals sc.ObjectId
+                    join s in ctx.CreateQuery<Solution>()
+                        on sc.SolutionId.Id equals s.SolutionId
+                    where sps.IsHidden.Value == false && sps.IsCustomizable.Value == true
+                    where sc.ComponentType.Value == (int)componenttype.SDKMessageProcessingStep
+                    where s.UniqueName == uniqueName
+                    select new SdkMessageProcessingStep
+                    {
+                        Id = sps.Id
+                    }
+                    ).ToList<SdkMessageProcessingStep>();
+        }
+
         public SdkMessageFilter GetMessageFilter(OrganizationServiceContext ctx,Guid MessageFilterId)
         {
             return (from f in ctx.CreateQuery<SdkMessageFilter>()

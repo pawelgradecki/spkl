@@ -115,10 +115,11 @@ public class CrmPluginRegistrationAttribute : Attribute
 #endregion
 }
 public enum ExecutionModeEnum
-{
+{    
     Asynchronous,
     Synchronous
 }
+
 public enum ImageTypeEnum
 {
     PreImage = 0,
