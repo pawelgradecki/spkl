@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SparkleXrm.Tasks
@@ -170,7 +171,7 @@ namespace SparkleXrm.Tasks
         }
 
 
-        public void RegisterPlugin(string file, bool excludePluginSteps = false)
+        public void RegisterPlugin(string file, bool excludePluginSteps = false, string registrationRegex = null)
         {
             var assemblyFilePath = new FileInfo(file);
 
@@ -195,6 +196,12 @@ namespace SparkleXrm.Tasks
 
                 if (plugin != null && !excludePluginSteps)
                 {
+                    if(!string.IsNullOrEmpty(registrationRegex))
+                    {
+                        var regex = new Regex(registrationRegex);
+                        pluginTypes = pluginTypes.Where(p => regex.Match(p.FullName).Success);
+                    }
+
                     RegisterPluginSteps(pluginTypes, plugin);
                 }
             }
@@ -203,7 +210,6 @@ namespace SparkleXrm.Tasks
 
         private PluginAssembly RegisterAssembly(FileInfo assemblyFilePath, Assembly assembly, IEnumerable<Type> pluginTypes)
         {
-
             // Get the isolation mode of the first attribute
             var firstType = Reflection.GetAttributes(pluginTypes, typeof(CrmPluginRegistrationAttribute).Name).FirstOrDefault();
             if (firstType == null)
@@ -294,8 +300,7 @@ namespace SparkleXrm.Tasks
             var sdkPluginTypes = ServiceLocator.Queries.GetPluginTypes(_ctx, plugin);
 
             foreach (var pluginType in pluginTypes)
-            {
-
+            {                
                 // Search for the CrmPluginStepAttribute
                 var pluginAttributes = pluginType.GetCustomAttributesData().Where(a => a.AttributeType.Name == typeof(CrmPluginRegistrationAttribute).Name);
                 PluginType sdkPluginType = null;
