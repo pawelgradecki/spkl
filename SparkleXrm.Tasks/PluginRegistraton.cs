@@ -327,6 +327,7 @@ namespace SparkleXrm.Tasks
                     {
                         _trace.WriteLine("Registering Type '{0}'", sdkPluginType.Name);
                         // Create
+                        sdkPluginType.EntityState = null;
                         sdkPluginType.Id = _service.Create(sdkPluginType);
                     }
                     else
@@ -375,7 +376,7 @@ namespace SparkleXrm.Tasks
                          where s.PluginTypeId.Id == sdkPluginType.Id
                          select new SdkMessageProcessingStep()
                          {
-                             Id = s.Id,
+                             Id = s.Id,                            
                              PluginTypeId = s.PluginTypeId,
                              SdkMessageId = s.SdkMessageId,
                              Mode = s.Mode,
@@ -461,7 +462,8 @@ namespace SparkleXrm.Tasks
             }
             
             if((step.Mode == sdkmessageprocessingstep_mode.Asynchronous && pluginStep.ExecutionMode == ExecutionModeEnum.Synchronous) ||
-               (step.Mode == sdkmessageprocessingstep_mode.Synchronous && pluginStep.ExecutionMode == ExecutionModeEnum.Asynchronous))
+               (step.Mode == sdkmessageprocessingstep_mode.Synchronous && pluginStep.ExecutionMode == ExecutionModeEnum.Asynchronous) ||
+               (!step.Mode.HasValue))
             {
                 step.Mode = pluginStep.ExecutionMode == ExecutionModeEnum.Asynchronous ? sdkmessageprocessingstep_mode.Asynchronous : sdkmessageprocessingstep_mode.Synchronous;
             }
@@ -487,7 +489,7 @@ namespace SparkleXrm.Tasks
                     break;
             }
 
-            if((int)step.Stage != stage)
+            if((int?)step.Stage != stage)
             {
                 step.Stage = (sdkmessageprocessingstep_stage)stage;
             }
@@ -506,7 +508,7 @@ namespace SparkleXrm.Tasks
                 supportDeployment = 0; // Server Only
             }
 
-            if((int)step.SupportedDeployment != supportDeployment)
+            if((int?)step.SupportedDeployment != supportDeployment)
             {
                 step.SupportedDeployment = (sdkmessageprocessingstep_supporteddeployment)supportDeployment;
             }
@@ -538,6 +540,8 @@ namespace SparkleXrm.Tasks
                 {
                     step.Id = stepId;
                 }
+
+                step.EntityState = null;
                 // Create
                 step.Id = _service.Create(step);
             }
