@@ -62,6 +62,12 @@ public class CrmPluginRegistrationAttribute : Attribute
 
     }
 
+    public CrmPluginRegistrationAttribute(MessageNameEnum message, string entityLogicalName, StageEnum stage, string id) 
+        : this(message.ToString(), entityLogicalName, stage, ExecutionModeEnum.Synchronous, string.Empty, string.Empty, 100, IsolationModeEnum.Sandbox)
+    {
+        this.Id = id;
+    }
+
     /// <summary>
     /// Create workflow activity registration
     /// </summary>

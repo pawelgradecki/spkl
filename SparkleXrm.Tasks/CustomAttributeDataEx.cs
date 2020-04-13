@@ -6,7 +6,7 @@ namespace SparkleXrm.Tasks
 {
     public static class AttributeExtensions
     {
-        public static CrmPluginRegistrationAttribute CreateFromData(this CustomAttributeData data)
+        public static CrmPluginRegistrationAttribute CreateFromData(this CustomAttributeData data, Type pluginType)
         {
             CrmPluginRegistrationAttribute attribute = null;
             var arguments = data.ConstructorArguments.ToArray();
@@ -47,6 +47,17 @@ namespace SparkleXrm.Tasks
                 (string)arguments[3].Value,
                 (IsolationModeEnum)Enum.ToObject(typeof(IsolationModeEnum), (int)arguments[4].Value)
                 );
+            }
+            else if(data.ConstructorArguments.Count == 4 && data.ConstructorArguments[0].ArgumentType.Name == "MessageNameEnum") // simplified plugin registration
+            {
+                attribute = new CrmPluginRegistrationAttribute(
+                    (MessageNameEnum)Enum.ToObject(typeof(MessageNameEnum), (int)arguments[0].Value),
+                   (string)arguments[1].Value,
+                   (StageEnum)Enum.ToObject(typeof(StageEnum), (int)arguments[2].Value),
+                   (string)arguments[3].Value);
+
+                // attribute.Name = $"{pluginType.FullName}: {attribute.Message} of {attribute.EntityLogicalName}";
+                
             }
 
             foreach (var namedArgument in data.NamedArguments)

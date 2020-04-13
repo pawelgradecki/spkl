@@ -301,7 +301,6 @@ namespace SparkleXrm.Tasks
                 PluginType sdkPluginType = null;
                 if (pluginAttributes.Count() > 0)
                 {
-                    var pluginStepAttribute = pluginAttributes.First().CreateFromData() as CrmPluginRegistrationAttribute;
                     // Check if the type is registered
                     sdkPluginType = sdkPluginTypes.Where(t => t.TypeName == pluginType.FullName).FirstOrDefault();
 
